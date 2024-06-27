@@ -1,0 +1,31 @@
+@startuml C4_Elements
+    !include https://raw.githubusercontent.com/plantuml-stdlib/C4-PlantUML/master/C4_Container.puml
+
+    Person(customer, "Cat-customer", "")
+    Person(worker, "Cat-worker", "")
+    Person(manager, "Manager", "")
+
+    System(mcfBack, "mcfBack", "") {
+        Container(orders, "Orders", "", "")
+        Container(matching, "Matching", "", "")
+        Container(order_execution, "OrderExecution", "", "")
+        Container(hiring, "Hiring", "", "")
+        Container(payments, "Payments", "", "")
+        Container(notification, "Notifications", "", "")
+        Container(salaries, "Salaries", "", "")
+    }
+
+    System(mcfApp, "mcfApp", "") {
+        Container(customer_app, "Customer app", "", "")
+        Container(worker_app, "Worker app", "", "")
+    }
+
+    Rel(customer, orders, "Label", "оформляет заказ, изменяет статусы")
+    Rel(customer, payments, "Оплачивает счет", "")
+    
+    Rel(worker, order_execution, "загружает фото, ", "оформляет заказ, изменяет статусы")
+    Rel(manager, order_execution, "загружает фото, ", "оформляет заказ, изменяет статусы")
+    
+    Rel(notification, customer_app, "push", "")
+    Rel(notification, worker_app, "push", "")
+@enduml
